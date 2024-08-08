@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    font-family: "Montserrat";
+    color: #333;
+    background-color: white;
+    text-decoration: none;
+  }
+
+  .friend-list-list * {
+    background-color: #f2f7f8;
+  }
+
+  .login * {
+    background-color: #a1a1a1;
+  }
+
+  .failed * {
+    background-color: #ffdddd;
+    color: #f53a3a;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+  .login-signup-label {
+    @apply block text-left text-[18px] text-white mb-1;
+  }
+
+  .login-signup-input {
+    @apply w-[94%] mt-[3px] mx-0 py-[6px] pl-[14px] border-[1px] rounded-2xl border-[#00000057]
+    focus:border-[#0816cccf] text-white text-[16px] bg-black placeholder:font-semibold; 
+  }
+
+  .generic-button {
+    @apply mx-auto p-2 text-[17px] text-white font-medium bg-[#ab9a6f] border-none rounded-md cursor-pointer;
+  }
 }
