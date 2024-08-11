@@ -7,7 +7,13 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Roboto', 'Arial', 'sans-serif'],
+        lato: ['Lato'],
+        OpenSans: ['Open Sans'],
+      }
+    },
   },
   plugins: [],
 }

@@ -8,8 +8,8 @@ const FriendsList: React.FC<FriendListProps> = ({ users }) => {
     return ( 
         <div className="">
             {users && users.map(user => (
-                <div key={user.id} className="p-4 font-[24px]">
-                    <p className="cursor-pointer" onClick={() => setReceiverId(user.id)}>{user.username}</p>
+                <div key={user.id} className="p-4 text-[20px] pl-7">
+                    <p className="cursor-pointer font-lato" onClick={() => setReceiverId(user.id)}>{user.username}</p>
                 </div>
             ))}
         </div>

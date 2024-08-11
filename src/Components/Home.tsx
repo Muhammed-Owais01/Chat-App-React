@@ -45,7 +45,7 @@ const Home = () => {
             <div className="friend-list-list w-[30%] h-full ml-8 bg-[#f2f7f8]">
                 {isLoading && <div>Loading...</div>}
                 {error && <div>{error}</div>}
-                <h2 className="mb-5 p-5 border-solid border-x-0 border-t-0 border-b border-[#000]">Chats</h2>
+                <h2 className="mb-5 p-5 border-solid border-x-0 border-t-0 border-b border-[#000] font-sans">Chats</h2>
                 {friendList && <FriendsList users={friendList} />}
             </div>
             <div className="flex w-[70%] h-full ml-5">
