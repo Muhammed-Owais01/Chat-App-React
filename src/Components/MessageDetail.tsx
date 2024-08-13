@@ -3,6 +3,9 @@ import { Message } from "../react-app-env";
 import { useUser } from "../Context/UserContext";
 import getCookie from "../utils/getCookie";
 import { io, Socket } from 'socket.io-client';
+import MessageList from "./MessageList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const MessageDetail = () => {
     const RESULTS_PER_PAGE: number = 10;
@@ -54,7 +57,7 @@ const MessageDetail = () => {
         return () => {
             socket.disconnect();
         };
-    }, [receiverId]);
+    }, [userId]);
 
     useEffect(() => {
         const cookieUserId = getCookie('userId');
@@ -98,6 +101,7 @@ const MessageDetail = () => {
                     'Authorization': `${token}`
                 }
             });
+            if (!res.ok) throw Error("Fetch Error");
             const { count, messages }: { count: number, messages: Message[] } = await res.json();
 
             if (messages) {
@@ -113,7 +117,8 @@ const MessageDetail = () => {
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                setError(err.message);
+                if (err.message.includes("Fetch Error"))
+                    setError("Could not fetch messages")
             }
             setIsLoading(false);
         }
@@ -162,25 +167,31 @@ const MessageDetail = () => {
 
     return ( 
         <div className="flex flex-col w-full">
-            <div className="mb-7 p-4">
+            <div className="mb-1 p-5 border-solid border-x-0 border-t-0 border-b border-[#b6c2bf]">
                 <h2 className="font-sans">{receiverName}</h2>
             </div>
-            <div ref={chatRef} className="flex flex-col-reverse overflow-y-auto flex-grow p-2 h-[695px]">
-                {fetchedMessages.map((message, index) => (
-                    <div key={message.id} ref={((index === fetchedMessages.length - 1) && hasMoreMessages) ? lastPostElementRef : null} 
-                    className={`mb-4 ${message.userId === userId ? 'ml-auto mr-20' : 'mr-auto'}`}>
-                        <h3 className="text-[20px] mb-2 font-lato font-semibold">{message.userId === userId ? senderName : receiverName }:</h3>
-                        <p className="font-OpenSans text-base">{message.content}</p>
-                    </div>
-                ))}
-            </div>
+            {isLoading && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+            {fetchedMessages && 
+            <MessageList 
+                messages={fetchedMessages}
+                userId={userId}
+                senderName={senderName}
+                receiverName={receiverName}
+                chatRef={chatRef}
+                hasMoreMessages={hasMoreMessages}
+                lastPostElementRef={lastPostElementRef}
+            />}
             <form onSubmit={sendMessage} className="mt-auto mb-10 w-full">
-                <textarea 
-                    value={textMessage}
-                    onChange={e => setTextMessage(e.target.value)}
-                    className="w-[80%] h-24 text-base p-2"
-                />
-                <button type="submit">Send</button>
+                <div className="relative w-[80%]">
+                    <textarea 
+                        ref={textareaRef}
+                        value={textMessage}
+                        onChange={e => setTextMessage(e.target.value)}
+                        className="w-[113%] max-w-[1255px] h-24 text-base border-[#b6c2bf] focus:border-[#b6c2bf] active:border-[#b6c2bf] p-2 pb-4 pr-24 ml-2 max-h-[154px] font-OpenSans rounded-2xl"
+                    />
+                    <button type="submit" className="absolute -right-60 bottom-2 bg-[#1e90ff] text-[18px] w-24 text-white p-2 px-4 rounded-full cursor-pointer"><FontAwesomeIcon className="bg-transparent" icon={faPaperPlane} /></button>
+                </div>
             </form>
         </div>
     );

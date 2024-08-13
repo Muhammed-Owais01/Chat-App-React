@@ -5,6 +5,7 @@ import Login from './Components/Login';
 import FriendsList from './Components/FriendsList';
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
+import SignUp from './Components/Signup';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -24,10 +25,16 @@ function App() {
                   
                 </Route>
               </>
-            ): 
-              <Route>
-                <Login />
-              </Route>}
+            ):
+              <> 
+                <Route exact path='/'>
+                  <Login />
+                </Route>
+                <Route exact path='/signup'>
+                  <SignUp />
+                </Route>
+              </>
+              }
           </Switch>
         </div>
       </div>

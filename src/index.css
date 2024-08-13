@@ -24,6 +24,17 @@
     background-color: #ffdddd;
     color: #f53a3a;
   }
+
+  .user-msg * {
+    background-color: dodgerblue;
+    color: #fff;
+  }
+
+  .receiver-msg * {
+    background-color: lightskyblue;
+    color: #000
+  }
+  
 }
 
 @layer components {
