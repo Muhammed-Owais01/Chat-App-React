@@ -12,7 +12,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const useUser = ():UserContextType => {
     const context: UserContextType | undefined = useContext(UserContext);
     if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProvider");
+        throw new Error("useUser must be used within a UserProvider");
     }
     return context;
 }

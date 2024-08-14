@@ -13,11 +13,12 @@ function App() {
   return (
     <Router>  
       <div className="App">
-        <Navbar />
+        
         <div>
           <Switch>
             {isLoggedIn ? (
               <>
+                <Navbar />
                 <Route exact path='/'>
                   <Home />
                 </Route>

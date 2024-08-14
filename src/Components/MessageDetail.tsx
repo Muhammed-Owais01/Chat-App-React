@@ -10,7 +10,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 const MessageDetail = () => {
     const RESULTS_PER_PAGE: number = 10;
 
-    const [textMessage, setTextMessage] = useState<string>("");
+    const [textMessage, setTextMessage] = useState<string | undefined>(undefined);
     const [fetchedMessages, setFetchedMessages] = useState<Message[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -190,7 +190,8 @@ const MessageDetail = () => {
                         onChange={e => setTextMessage(e.target.value)}
                         className="w-[113%] max-w-[1255px] h-24 text-base border-[#b6c2bf] focus:border-[#b6c2bf] active:border-[#b6c2bf] p-2 pb-4 pr-24 ml-2 max-h-[154px] font-OpenSans rounded-2xl"
                     />
-                    <button type="submit" className="absolute -right-60 bottom-2 bg-[#1e90ff] text-[18px] w-24 text-white p-2 px-4 rounded-full cursor-pointer"><FontAwesomeIcon className="bg-transparent" icon={faPaperPlane} /></button>
+                    {textMessage && <button type="submit" className="absolute -right-60 bottom-2 bg-[#1e90ff] text-[18px] w-24 text-white p-2 px-4 rounded-full cursor-pointer"><FontAwesomeIcon className="bg-transparent" icon={faPaperPlane} /></button>}
+                    {!textMessage && <button disabled type="submit" className="absolute -right-60 bottom-2 bg-[#1e90ff] text-[18px] w-24 text-white p-2 px-4 rounded-full"><FontAwesomeIcon className="bg-transparent" icon={faPaperPlane} /></button>}
                 </div>
             </form>
         </div>

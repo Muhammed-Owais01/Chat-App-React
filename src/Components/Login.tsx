@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom"
 import { useAuth } from "../Context/AuthContext";
 import { useUser } from "../Context/UserContext";
+import { usePopUp } from "../Context/PopUpContext";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ const Login = () => {
     const history = useHistory();
     const { login } = useAuth();
     const { setUserId } = useUser();
+    const { setShowSettings } = usePopUp();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -37,6 +39,7 @@ const Login = () => {
                 document.cookie = `username=${user.username}; expires=${expirationDate.toUTCString()}; path=/;`;
                 document.cookie = `userId=${userId}; expires=${expirationDate.toUTCString()}; path=/;`;
                 login(user.username);
+                setShowSettings(false);
                 setUserId(userId);
                 history.push('/');
             }
